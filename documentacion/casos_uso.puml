@@ -1,0 +1,26 @@
+@startuml
+left to right direction
+actor Programador
+rectangle PromptZal {
+ usecase "Crear/editar programa" as UC1
+ usecase "Abrir .pz" as UC2
+ usecase "Guardar .pz" as UC3
+ usecase "Compilar programa" as UC4
+ usecase "Ver prompt generado" as UC5
+ usecase "Guardar prompt .md/.txt" as UC6
+ usecase "Generar reporte de errores" as UC7
+ usecase "Generar tabla de símbolos" as UC8
+ usecase "Generar reporte AST" as UC9
+}
+Programador --> UC1
+Programador --> UC2
+Programador --> UC3
+Programador --> UC4
+Programador --> UC5
+Programador --> UC6
+Programador --> UC7
+Programador --> UC8
+Programador --> UC9
+UC4 .> UC5 : <<include>>
+UC4 .> UC7 : <<include>>
+@enduml

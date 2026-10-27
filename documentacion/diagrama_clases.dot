@@ -1,0 +1,1 @@
+digraph G { rankdir=LR; node [shape=box,style="rounded,filled",fillcolor="#eef3f8",fontname="Arial"]; Main -> Compilador; Compilador -> Lexer; Compilador -> Parser; Lexer -> Token; Parser -> Token; Parser -> Modelo; Modelo -> Agente; Modelo -> Directiva; Agente -> Variable; Agente -> Comando; Variable -> Expr; Comando -> Expr; Compilador -> ErrorCompilacion; }
