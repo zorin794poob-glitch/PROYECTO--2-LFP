@@ -1,0 +1,12 @@
+@modelo "claude-sonnet-4-6"
+@rol "analista de datos"
+@formato "markdown"
+// Agente que prepara el analisis de un archivo de ventas
+AGENTE analista {
+ contexto = "Eres un analista de datos experto"
+ variable ventas = CARGAR("ventas.csv")
+ PREGUNTAR "Cuales son las 3 tendencias principales?" SOBRE ventas -> tendencias
+ RESUMIR tendencias EN 100 palabras -> resumen
+}
+EJECUTAR analista
+EXPORTAR resumen

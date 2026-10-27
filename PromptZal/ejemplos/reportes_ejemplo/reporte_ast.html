@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Reporte del AST</title><style>body{font-family:Segoe UI,Arial,sans-serif;background:#1e1f22;color:#dfe1e5;margin:32px}h1{color:#6fb1fc;margin-bottom:4px}p.sub{color:#8c8f94;margin-top:0}table{border-collapse:collapse;width:100%;margin-top:16px}th{background:#2b2d30;color:#6fb1fc;text-align:left;padding:8px 12px;border-bottom:2px solid #3c3f41}td{padding:7px 12px;border-bottom:1px solid #393b40}tr:hover td{background:#2b2d30}.LEXICO{color:#e5c07b}.SINTACTICO{color:#e06c75}.SEMANTICO{color:#c678dd}.ok{color:#98c379;font-size:18px;margin-top:24px}pre{background:#2b2d30;padding:16px;border-radius:6px;font-family:Consolas,monospace;line-height:1.5;overflow:auto}</style></head><body><h1>Reporte del AST</h1><p class="sub">PromptZal &middot; generado el 23/10/2026 08:11:44</p><pre>Programa
+  Directiva @modelo = &quot;claude-sonnet-4-6&quot;
+  Directiva @rol = &quot;analista de datos&quot;
+  Directiva @formato = &quot;markdown&quot;
+  Agente analista (línea 5)
+    Contexto: &quot;Eres un analista de datos experto&quot;
+    Variable ventas (línea 7)
+      Valor: Cargar(&quot;ventas.csv&quot;)
+    Comando PREGUNTAR (línea 8)
+      Argumento: Cadena(&quot;Cuales son las 3 tendencias principales?&quot;)
+      Conector SOBRE: Id(ventas)
+      Destino: tendencias
+    Comando RESUMIR (línea 9)
+      Argumento: Id(tendencias)
+      Conector EN: Numero(100 palabras)
+      Destino: resumen
+  Ejecutar analista
+  Exportar
+    resumen
+</pre></body></html>

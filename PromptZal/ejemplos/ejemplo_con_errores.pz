@@ -1,0 +1,24 @@
+@modelo "x"
+@rol
+@formato "md"
+AGENTE a {
+  contexto = "hola"
+  variable v = CARGAR("f.csv") + y
+  PREGUNTAR "q" SOBRE zz -> r
+  GENERAR codigo DESDE v -> g
+  RESUMIR r EN 10 palabras ->
+  variable tarde = 3
+  RESUMIR v COMO -> s
+  TRADUCIR r EN "ingles" -> t #
+}
+AGENTE a {
+  contexto = "dup"
+  EXTRAER "x" DESDE q -> z
+}
+AGENTE b
+  contexto = "sin llave"
+  PREGUNTAR "p" -> w
+}
+EJECUTAR a
+EJECUTAR noexiste
+EXPORTAR r, nada, t
