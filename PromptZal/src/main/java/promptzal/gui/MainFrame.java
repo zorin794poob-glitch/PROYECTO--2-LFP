@@ -51,22 +51,22 @@ import promptzal.report.Reportes;
 import promptzal.semantic.Simbolo;
 import promptzal.util.ErrorCompilacion;
 
-/** Ventana principal: un mini-IDE para escribir, compilar y revisar programas PromptZal (.pz). */
+
 public class MainFrame extends JFrame {
 
-    private static final String EJEMPLO =
-        "@modelo \"claude-sonnet-4-6\"\n"
-        + "@rol \"analista de datos\"\n"
-        + "@formato \"markdown\"\n\n"
-        + "// Agente que prepara el analisis de un archivo de ventas\n"
-        + "AGENTE analista {\n"
-        + "    contexto = \"Eres un analista de datos experto\"\n"
-        + "    variable ventas = CARGAR(\"ventas.csv\")\n"
-        + "    PREGUNTAR \"Cuales son las 3 tendencias principales?\" SOBRE ventas -> tendencias\n"
-        + "    RESUMIR tendencias EN 100 palabras -> resumen\n"
-        + "}\n\n"
-        + "EJECUTAR analista\n"
-        + "EXPORTAR resumen\n";
+    private static final String EJEMPLO
+            = "@modelo \"claude-sonnet-4-6\"\n"
+            + "@rol \"analista de datos\"\n"
+            + "@formato \"markdown\"\n\n"
+            + "// Agente que prepara el analisis de un archivo de ventas\n"
+            + "AGENTE analista {\n"
+            + "    contexto = \"Eres un analista de datos experto\"\n"
+            + "    variable ventas = CARGAR(\"ventas.csv\")\n"
+            + "    PREGUNTAR \"Cuales son las 3 tendencias principales?\" SOBRE ventas -> tendencias\n"
+            + "    RESUMIR tendencias EN 100 palabras -> resumen\n"
+            + "}\n\n"
+            + "EJECUTAR analista\n"
+            + "EXPORTAR resumen\n";
 
     private final EditorPane editor = new EditorPane();
     private final JTextArea panelPrompt = new JTextArea();
@@ -104,9 +104,19 @@ public class MainFrame extends JFrame {
         actualizarTitulo();
 
         editor.addDocumentListener(new DocumentListener() {
-            @Override public void insertUpdate(DocumentEvent e) { marcarModificado(); }
-            @Override public void removeUpdate(DocumentEvent e) { marcarModificado(); }
-            @Override public void changedUpdate(DocumentEvent e) { }
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                marcarModificado();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                marcarModificado();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
         });
         editor.getTextPane().addCaretListener(e -> {
             int pos = editor.getTextPane().getCaretPosition();
@@ -116,15 +126,20 @@ public class MainFrame extends JFrame {
             estadoPosicion.setText("Ln " + (linea + 1) + ", Col " + (col + 1));
         });
         addWindowListener(new WindowAdapter() {
-            @Override public void windowClosing(WindowEvent e) { salir(); }
+            @Override
+            public void windowClosing(WindowEvent e) {
+                salir();
+            }
         });
     }
 
-    // ================================================================= construcción de la UI
-
+    //   construcción de la UI
     private static DefaultTableModel modelo(String... columnas) {
         return new DefaultTableModel(columnas, 0) {
-            @Override public boolean isCellEditable(int r, int c) { return false; }
+            @Override
+            public boolean isCellEditable(int r, int c) {
+                return false;
+            }
         };
     }
 
@@ -158,7 +173,10 @@ public class MainFrame extends JFrame {
                 + "Léxico: JFlex | Sintáctico: descendente recursivo a mano",
                 "Acerca de", JOptionPane.INFORMATION_MESSAGE)));
 
-        barra.add(archivo); barra.add(ejecutar); barra.add(reportes); barra.add(ayuda);
+        barra.add(archivo);
+        barra.add(ejecutar);
+        barra.add(reportes);
+        barra.add(ayuda);
         setJMenuBar(barra);
     }
 
@@ -217,10 +235,11 @@ public class MainFrame extends JFrame {
 
         JSplitPane superior = dividir(JSplitPane.HORIZONTAL_SPLIT, izquierda, prompt, 0.58);
 
-        // ---- panel inferior con pestañas
+        //  panel inferior con pestañas
         JTable tErrores = tabla(modeloErrores, true);
         tErrores.addMouseListener(new MouseAdapter() {
-            @Override public void mouseClicked(MouseEvent e) {
+            @Override
+            public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     int f = tErrores.getSelectedRow();
                     if (f >= 0) {
@@ -254,9 +273,11 @@ public class MainFrame extends JFrame {
         sp.setContinuousLayout(true);
         sp.setBackground(Tema.FONDO);
         sp.setUI(new javax.swing.plaf.basic.BasicSplitPaneUI() {
-            @Override public javax.swing.plaf.basic.BasicSplitPaneDivider createDefaultDivider() {
+            @Override
+            public javax.swing.plaf.basic.BasicSplitPaneDivider createDefaultDivider() {
                 return new javax.swing.plaf.basic.BasicSplitPaneDivider(this) {
-                    @Override public void paint(java.awt.Graphics g) {
+                    @Override
+                    public void paint(java.awt.Graphics g) {
                         g.setColor(Tema.BORDE);
                         g.fillRect(0, 0, getWidth(), getHeight());
                     }
@@ -318,7 +339,8 @@ public class MainFrame extends JFrame {
         t.getTableHeader().setForeground(Tema.TEXTO_SUAVE);
         t.getTableHeader().setReorderingAllowed(false);
         DefaultTableCellRenderer r = new DefaultTableCellRenderer() {
-            @Override public Component getTableCellRendererComponent(JTable tb, Object v, boolean sel, boolean foc, int row, int col) {
+            @Override
+            public Component getTableCellRendererComponent(JTable tb, Object v, boolean sel, boolean foc, int row, int col) {
                 Component c = super.getTableCellRendererComponent(tb, v, sel, foc, row, col);
                 c.setBackground(sel ? Tema.SELECCION : Tema.FONDO);
                 c.setForeground(Tema.TEXTO);
@@ -347,10 +369,12 @@ public class MainFrame extends JFrame {
         return p;
     }
 
-    // ================================================================= archivos
-
+    //   archivos
     private void marcarModificado() {
-        if (!modificado) { modificado = true; actualizarTitulo(); }
+        if (!modificado) {
+            modificado = true;
+            actualizarTitulo();
+        }
     }
 
     private void actualizarTitulo() {
@@ -360,16 +384,24 @@ public class MainFrame extends JFrame {
     }
 
     private boolean confirmarDescarte() {
-        if (!modificado) return true;
+        if (!modificado) {
+            return true;
+        }
         int r = JOptionPane.showConfirmDialog(this, "Hay cambios sin guardar. ¿Guardarlos?", "PromptZal",
                 JOptionPane.YES_NO_CANCEL_OPTION);
-        if (r == JOptionPane.CANCEL_OPTION || r == JOptionPane.CLOSED_OPTION) return false;
-        if (r == JOptionPane.YES_OPTION) return guardar(false);
+        if (r == JOptionPane.CANCEL_OPTION || r == JOptionPane.CLOSED_OPTION) {
+            return false;
+        }
+        if (r == JOptionPane.YES_OPTION) {
+            return guardar(false);
+        }
         return true;
     }
 
     private void nuevo() {
-        if (!confirmarDescarte()) return;
+        if (!confirmarDescarte()) {
+            return;
+        }
         archivoActual = null;
         editor.setTexto("");
         modificado = false;
@@ -378,10 +410,14 @@ public class MainFrame extends JFrame {
     }
 
     private void abrir() {
-        if (!confirmarDescarte()) return;
+        if (!confirmarDescarte()) {
+            return;
+        }
         JFileChooser fc = new JFileChooser(archivoActual != null ? archivoActual.getParent().toFile() : null);
         fc.setFileFilter(new FileNameExtensionFilter("Archivos PromptZal (*.pz)", "pz"));
-        if (fc.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
+        if (fc.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
         try {
             Path p = fc.getSelectedFile().toPath();
             editor.setTexto(new String(Files.readAllBytes(p), StandardCharsets.UTF_8));
@@ -398,9 +434,13 @@ public class MainFrame extends JFrame {
         if (archivoActual == null || como) {
             JFileChooser fc = new JFileChooser();
             fc.setFileFilter(new FileNameExtensionFilter("Archivos PromptZal (*.pz)", "pz"));
-            if (fc.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) return false;
+            if (fc.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
+                return false;
+            }
             Path p = fc.getSelectedFile().toPath();
-            if (!p.getFileName().toString().toLowerCase().endsWith(".pz")) p = p.resolveSibling(p.getFileName() + ".pz");
+            if (!p.getFileName().toString().toLowerCase().endsWith(".pz")) {
+                p = p.resolveSibling(p.getFileName() + ".pz");
+            }
             archivoActual = p;
         }
         try {
@@ -416,13 +456,17 @@ public class MainFrame extends JFrame {
     }
 
     private void salir() {
-        if (confirmarDescarte()) { dispose(); System.exit(0); }
+        if (confirmarDescarte()) {
+            dispose();
+            System.exit(0);
+        }
     }
 
-    private void error(String m) { JOptionPane.showMessageDialog(this, m, "Error", JOptionPane.ERROR_MESSAGE); }
+    private void error(String m) {
+        JOptionPane.showMessageDialog(this, m, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
-    // ================================================================= compilación
-
+    //  compilación
     private void limpiarResultados() {
         ultimo = null;
         modeloErrores.setRowCount(0);
@@ -456,7 +500,9 @@ public class MainFrame extends JFrame {
         }
         modeloTokens.setRowCount(0);
         n = 1;
-        for (Token t : r.tokens) modeloTokens.addRow(new Object[]{n++, t.tipo, t.lexema, t.fila, t.columna});
+        for (Token t : r.tokens) {
+            modeloTokens.addRow(new Object[]{n++, t.tipo, t.lexema, t.fila, t.columna});
+        }
 
         panelAst.setText(Reportes.astTexto(r.programa));
         panelAst.setCaretPosition(0);
@@ -464,7 +510,7 @@ public class MainFrame extends JFrame {
         panelPrompt.setCaretPosition(0);
 
         int lex = r.contar(ErrorCompilacion.Tipo.LEXICO), sin = r.contar(ErrorCompilacion.Tipo.SINTACTICO),
-            sem = r.contar(ErrorCompilacion.Tipo.SEMANTICO);
+                sem = r.contar(ErrorCompilacion.Tipo.SEMANTICO);
         String resumen = r.errores.isEmpty()
                 ? "Compilación exitosa: 0 errores"
                 : "Compilación con errores: " + lex + " léxico(s), " + sin + " sintáctico(s), " + sem + " semántico(s)";
@@ -476,20 +522,30 @@ public class MainFrame extends JFrame {
         consola.setText("");
         consola.append(resumen + "\n");
         consola.append("Tokens: " + r.tokens.size() + " | Símbolos: " + r.tabla.getSimbolos().size() + "\n");
-        for (ErrorCompilacion e : r.errores) consola.append(e + "\n");
-        if (!r.errores.isEmpty()) consola.append("\nEl promptzal se generó con la información que se pudo reconocer.\n");
+        for (ErrorCompilacion e : r.errores) {
+            consola.append(e + "\n");
+        }
+        if (!r.errores.isEmpty()) {
+            consola.append("\nEl promptzal se generó con la información que se pudo reconocer.\n");
+        }
     }
 
     private void guardarPrompt() {
-        if (ultimo == null) compilar();
+        if (ultimo == null) {
+            compilar();
+        }
         JFileChooser fc = new JFileChooser();
         fc.setSelectedFile(new java.io.File("promptzal.md"));
         fc.addChoosableFileFilter(new FileNameExtensionFilter("Markdown (*.md)", "md"));
         fc.addChoosableFileFilter(new FileNameExtensionFilter("Texto (*.txt)", "txt"));
-        if (fc.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) return;
+        if (fc.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
         Path p = fc.getSelectedFile().toPath();
         String nombre = p.getFileName().toString().toLowerCase();
-        if (!nombre.endsWith(".md") && !nombre.endsWith(".txt")) p = p.resolveSibling(p.getFileName() + ".md");
+        if (!nombre.endsWith(".md") && !nombre.endsWith(".txt")) {
+            p = p.resolveSibling(p.getFileName() + ".md");
+        }
         try {
             Reportes.guardar(p, ultimo.prompt);
             estadoResumen.setText("Promptzal guardado en " + p);
@@ -499,7 +555,6 @@ public class MainFrame extends JFrame {
     }
 
     // ================================================================= reportes
-
     private Path carpetaReportes() {
         Path base = archivoActual != null && archivoActual.getParent() != null
                 ? archivoActual.getParent() : Paths.get(System.getProperty("user.home"));
@@ -507,7 +562,9 @@ public class MainFrame extends JFrame {
     }
 
     private void reporte(String cual) {
-        if (ultimo == null) compilar();
+        if (ultimo == null) {
+            compilar();
+        }
         try {
             Path dir = carpetaReportes();
             Files.createDirectories(dir);
@@ -533,11 +590,15 @@ public class MainFrame extends JFrame {
     }
 
     private void reportesTodos() {
-        if (ultimo == null) compilar();
+        if (ultimo == null) {
+            compilar();
+        }
         JFileChooser fc = new JFileChooser(carpetaReportes().getParent() == null ? null : carpetaReportes().getParent().toFile());
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fc.setDialogTitle("Carpeta destino de los reportes");
-        if (fc.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) return;
+        if (fc.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
         try {
             List<Path> rutas = Reportes.generarTodos(fc.getSelectedFile().toPath(), ultimo);
             estadoResumen.setText("Reportes generados en " + fc.getSelectedFile());
@@ -552,6 +613,7 @@ public class MainFrame extends JFrame {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 Desktop.getDesktop().browse(p.toUri());
             }
-        } catch (IOException | UnsupportedOperationException ignorada) { }
+        } catch (IOException | UnsupportedOperationException ignorada) {
+        }
     }
 }

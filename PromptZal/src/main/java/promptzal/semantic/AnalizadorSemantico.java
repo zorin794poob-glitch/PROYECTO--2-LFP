@@ -10,27 +10,26 @@ import java.util.Set;
 import promptzal.ast.Ast.*;
 import promptzal.util.ErrorCompilacion;
 
-/**
- * Validación semántica y construcción de la tabla de símbolos recorriendo el AST.
- *  - Identificador usado debe estar declarado antes, dentro del mismo agente.
- *  - No puede haber dos agentes con el mismo nombre.
- *  - EJECUTAR solo puede referirse a un agente existente.
- *  - EXPORTAR solo puede referirse a variables existentes en algún agente ejecutado.
- * Excepciones: primer argumento ID de GENERAR (tipo de contenido) y la unidad de un número.
- */
 public class AnalizadorSemantico {
 
     private final TablaSimbolos tabla = new TablaSimbolos();
     private final List<ErrorCompilacion> errores = new ArrayList<>();
 
-    public TablaSimbolos getTabla() { return tabla; }
-    public List<ErrorCompilacion> getErrores() { return errores; }
+    public TablaSimbolos getTabla() {
+        return tabla;
+    }
+
+    public List<ErrorCompilacion> getErrores() {
+        return errores;
+    }
 
     public void analizar(Programa prog) {
         // 1) agentes: nombres únicos
         Map<String, Agente> agentesPorNombre = new LinkedHashMap<>();
         for (Agente a : prog.agentes) {
-            if (a.nombre.startsWith("<")) continue;           // agente con cabecera inválida
+            if (a.nombre.startsWith("<")) {
+                continue;            
+            }
             Agente previo = agentesPorNombre.get(a.nombre);
             if (previo != null) {
                 errores.add(ErrorCompilacion.semantico("Agente '" + a.nombre
@@ -46,7 +45,7 @@ public class AnalizadorSemantico {
         for (Agente a : prog.agentes) {
             Set<String> vars = new HashSet<>();
             visibles.put(a, vars);
-            boolean registrar = agentesPorNombre.get(a.nombre) == a;   // solo el primero con ese nombre
+            boolean registrar = agentesPorNombre.get(a.nombre) == a;    
             Set<String> declaradasConVariable = new HashSet<>();
 
             for (VariableDecl v : a.variables) {
@@ -56,16 +55,22 @@ public class AnalizadorSemantico {
                             + "' ya fue declarada en el agente '" + a.nombre + "'", v.fila, v.columna));
                 }
                 vars.add(v.nombre);
-                if (registrar) tabla.declarar(new Simbolo(v.nombre, Simbolo.Tipo.VARIABLE_DECLARADA, a.nombre, v.fila));
+                if (registrar) {
+                    tabla.declarar(new Simbolo(v.nombre, Simbolo.Tipo.VARIABLE_DECLARADA, a.nombre, v.fila));
+                }
             }
 
             for (Comando c : a.comandos) {
                 validarExpresion(c.argumento, vars, a, c.tipo.equals("GENERAR"));
-                for (Conector k : c.conectores) validarExpresion(k.expresion, vars, a, false);
+                for (Conector k : c.conectores) {
+                    validarExpresion(k.expresion, vars, a, false);
+                }
                 if (c.destino != null) {
                     vars.add(c.destino);
-                    if (registrar) tabla.declarar(new Simbolo(c.destino, Simbolo.Tipo.RESULTADO_COMANDO,
-                            a.nombre, c.destinoFila));
+                    if (registrar) {
+                        tabla.declarar(new Simbolo(c.destino, Simbolo.Tipo.RESULTADO_COMANDO,
+                                a.nombre, c.destinoFila));
+                    }
                 }
             }
         }
@@ -86,7 +91,10 @@ public class AnalizadorSemantico {
         for (Referencia r : prog.exportaciones) {
             boolean existe = false;
             for (Agente a : ejecutados) {
-                if (visibles.get(a).contains(r.nombre)) { existe = true; break; }
+                if (visibles.get(a).contains(r.nombre)) {
+                    existe = true;
+                    break;
+                }
             }
             if (!existe) {
                 errores.add(ErrorCompilacion.semantico("EXPORTAR hace referencia a '" + r.nombre
@@ -96,11 +104,17 @@ public class AnalizadorSemantico {
     }
 
     private void validarExpresion(Expresion e, Set<String> vars, Agente a, boolean esGenerar) {
-        if (e == null) return;
+        if (e == null) {
+            return;
+        }
         for (int i = 0; i < e.terminos.size(); i++) {
             Termino t = e.terminos.get(i);
-            if (t.clase != Termino.Clase.ID) continue;
-            if (esGenerar && i == 0) continue;                     // GENERAR <tipo de contenido>
+            if (t.clase != Termino.Clase.ID) {
+                continue;
+            }
+            if (esGenerar && i == 0) {
+                continue;              
+            }
             if (!vars.contains(t.valor)) {
                 errores.add(ErrorCompilacion.semantico("El identificador '" + t.valor
                         + "' no está declarado en el agente '" + a.nombre + "' antes de su uso", t.fila, t.columna));

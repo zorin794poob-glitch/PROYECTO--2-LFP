@@ -1,6 +1,5 @@
-    package promptzal.util;
+package promptzal.util;
 
-/** Error detectado en cualquier fase de la compilación (léxica, sintáctica o semántica). */
 public final class ErrorCompilacion {
 
     public enum Tipo {
@@ -15,9 +14,10 @@ public final class ErrorCompilacion {
 
     public final Tipo tipo;
     public final String descripcion;
-    /** Lexema o token encontrado (léxico y sintáctico). Puede ser vacío. */
+
+    //   Lexema o token encontrado (léxico y sintáctico). Puede ser vacío.
     public final String encontrado;
-    /** Lo que la gramática esperaba (solo sintáctico). Puede ser vacío. */
+
     public final String esperado;
     public final int fila;
     public final int columna;

@@ -10,7 +10,10 @@ import promptzal.parser.Parser;
 import promptzal.semantic.AnalizadorSemantico;
 import promptzal.util.ErrorCompilacion;
 
-/** Ejecuta todas las fases: léxico (JFlex) -> sintáctico -> semántico -> promptzal. */
+/**
+ * Ejecuta todas las fases: léxico (JFlex) -> sintáctico -> semántico ->
+ * promptzal.
+ */
 public class Compilador {
 
     public ResultadoCompilacion compilar(String fuente) {

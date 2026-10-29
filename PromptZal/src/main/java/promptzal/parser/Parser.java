@@ -9,18 +9,9 @@ import promptzal.lexer.TipoToken;
 import promptzal.lexer.Token;
 import promptzal.util.ErrorCompilacion;
 
-/**
- * Analizador sintáctico descendente recursivo escrito a mano.
- * Cada no terminal de la gramática es un método (mismo nombre, sin los símbolos < >).
- * Las reglas "mas_..." (repetición) se implementan con un ciclo while, equivalente
- * a la recursión por la derecha de la gramática.
- *
- * Recuperación de errores en modo pánico: al detectar un error se reporta y se
- * descartan tokens hasta un token de sincronización; el análisis continúa.
- */
+
 public class Parser {
 
-    /** Excepción interna usada para saltar a la rutina de recuperación. */
     private static class ErrorSintactico extends RuntimeException {
         final ErrorCompilacion error;
         final int indiceToken;
@@ -31,7 +22,7 @@ public class Parser {
         }
     }
 
-    /** Tokens de sincronización (modo pánico). EOF siempre detiene el descarte. */
+    // Tokens de sincronización (modo pánico). EOF siempre detiene el descarte.
     private static final Set<TipoToken> SINCRONIZACION = EnumSet.of(
             TipoToken.AGENTE, TipoToken.LLAVE_C, TipoToken.COMANDO_IA,
             TipoToken.VARIABLE, TipoToken.EJECUTAR, TipoToken.EXPORTAR,
@@ -49,7 +40,7 @@ public class Parser {
 
     public List<ErrorCompilacion> getErrores() { return errores; }
 
-    // ------------------------------------------------------------------ utilidades
+    //  utilidades
 
     private Token actual() { return tokens.get(Math.min(p, tokens.size() - 1)); }
 
@@ -74,7 +65,7 @@ public class Parser {
         return new ErrorSintactico(ErrorCompilacion.sintactico(encontrado, esperado, t.fila, t.columna), p);
     }
 
-    /** Registra el error (evita duplicar errores sobre el mismo token). */
+    // Registra el error (evita duplicar errores sobre el mismo token).
     private void registrar(ErrorSintactico e) {
         if (e.indiceToken != ultimoErrorIndice) {
             errores.add(e.error);
@@ -82,12 +73,12 @@ public class Parser {
         }
     }
 
-    /** Modo pánico: descarta tokens hasta uno de sincronización. */
+    // Modo pánico: descarta tokens hasta uno de sincronización. 
     private void sincronizar() {
         while (!SINCRONIZACION.contains(actual().tipo)) p++;
     }
 
-    // ------------------------------------------------------------------ gramática
+    //  gramática
 
     /** &lt;programa&gt; -> &lt;directivas&gt; &lt;agentes&gt; &lt;ejecuciones&gt; &lt;exportar&gt; EOF */
     public Programa programa() {

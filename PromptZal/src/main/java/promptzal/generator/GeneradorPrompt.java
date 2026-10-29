@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Set;
 import promptzal.ast.Ast.*;
 
-/** Recorre el AST y produce el promptzal (texto del prompt final). */
+/**
+ * Recorre el AST y produce el promptzal.
+ */
 public class GeneradorPrompt {
 
     public String generar(Programa prog) {
@@ -16,16 +18,26 @@ public class GeneradorPrompt {
         String modelo = prog.directiva("@modelo");
         String rol = prog.directiva("@rol");
         String formato = prog.directiva("@formato");
-        if (modelo != null) sb.append("Modelo destino: ").append(modelo).append('\n');
-        if (rol != null) sb.append("Rol general: ").append(rol).append('\n');
-        if (formato != null) sb.append("Formato de respuesta: ").append(formato).append('\n');
+        if (modelo != null) {
+            sb.append("Modelo destino: ").append(modelo).append('\n');
+        }
+        if (rol != null) {
+            sb.append("Rol general: ").append(rol).append('\n');
+        }
+        if (formato != null) {
+            sb.append("Formato de respuesta: ").append(formato).append('\n');
+        }
 
         Set<Agente> yaEmitidos = new HashSet<>();
         for (Referencia ej : prog.ejecuciones) {
             Agente ag = buscarAgente(prog, ej.nombre);
-            if (ag == null) continue;                 // error semántico ya reportado
+            if (ag == null) {
+                continue;                
+            }
             sb.append("\n## Agente: ").append(ag.nombre).append('\n');
-            if (ag.contexto != null) sb.append("Contexto: ").append(ag.contexto).append('\n');
+            if (ag.contexto != null) {
+                sb.append("Contexto: ").append(ag.contexto).append('\n');
+            }
 
             if (!ag.variables.isEmpty()) {
                 sb.append("Variables disponibles:\n");
@@ -43,32 +55,44 @@ public class GeneradorPrompt {
         }
 
         sb.append("\n## Resultado solicitado\n");
-        for (Referencia r : prog.exportaciones) sb.append("- ").append(r.nombre).append('\n');
+        for (Referencia r : prog.exportaciones) {
+            sb.append("- ").append(r.nombre).append('\n');
+        }
         return sb.toString();
     }
 
     private Agente buscarAgente(Programa prog, String nombre) {
-        for (Agente a : prog.agentes) if (a.nombre.equals(nombre)) return a;
+        for (Agente a : prog.agentes) {
+            if (a.nombre.equals(nombre)) {
+                return a;
+            }
+        }
         return null;
     }
 
-    // ------------------------------------------------------------ origen de variables
-
+    // origen de variables
     private String origen(Expresion e) {
         List<String> partes = new ArrayList<>();
         for (Termino t : e.terminos) {
             switch (t.clase) {
-                case CARGAR: partes.add("contenido del archivo \"" + t.valor + "\" (adjuntar el archivo)"); break;
-                case CADENA: partes.add("\"" + t.valor + "\""); break;
-                case ID:     partes.add("valor de " + t.valor); break;
-                default:     partes.add(numero(t)); break;
+                case CARGAR:
+                    partes.add("contenido del archivo \"" + t.valor + "\" (adjuntar el archivo)");
+                    break;
+                case CADENA:
+                    partes.add("\"" + t.valor + "\"");
+                    break;
+                case ID:
+                    partes.add("valor de " + t.valor);
+                    break;
+                default:
+                    partes.add(numero(t));
+                    break;
             }
         }
         return String.join(" + ", partes);
     }
 
-    // ------------------------------------------------------------ instrucciones
-
+    // instrucciones
     private String instruccion(Comando c) {
         String arg = texto(c.argumento);
         Set<String> usados = new HashSet<>(Arrays.asList("COMO"));
@@ -112,11 +136,11 @@ public class GeneradorPrompt {
                 base = desde != null ? "Extrae " + arg + " a partir de " + desde + "." : "Extrae " + arg + ".";
                 break;
             }
-            default:   // comando agregado (p. ej. CODIFICAR): redacción genérica
+            default:  
                 base = "Aplica " + c.tipo + " a " + arg + ".";
         }
 
-        base = base.replaceAll("([?!.])\\.$", "$1");   // evita "?." al final
+        base = base.replaceAll("([?!.])\\.$", "$1");  
         StringBuilder sb = new StringBuilder(base);
         // conectores no usados por la plantilla del comando
         for (Conector k : c.conectores) {
@@ -127,27 +151,41 @@ public class GeneradorPrompt {
         }
         sb.append('\n').append(guarda);
         Expresion como = c.conector("COMO");
-        if (como != null) sb.append(" Entrega el resultado en formato ").append(texto(como)).append('.');
+        if (como != null) {
+            sb.append(" Entrega el resultado en formato ").append(texto(como)).append('.');
+        }
         return sb.toString();
     }
 
     private String textoConector(Comando c, String nombre, Set<String> usados) {
         Expresion e = c.conector(nombre);
-        if (e == null) return null;
+        if (e == null) {
+            return null;
+        }
         usados.add(nombre);
         return texto(e);
     }
 
-    /** Texto legible de una expresión (cadenas sin comillas, números con su unidad). */
+     // Texto legible de una expresión
     private String texto(Expresion e) {
-        if (e == null) return "";
+        if (e == null) {
+            return "";
+        }
         List<String> partes = new ArrayList<>();
         for (Termino t : e.terminos) {
             switch (t.clase) {
-                case CADENA: partes.add(t.valor); break;
-                case ID:     partes.add(t.valor); break;
-                case CARGAR: partes.add("el contenido del archivo \"" + t.valor + "\""); break;
-                default:     partes.add(numero(t)); break;
+                case CADENA:
+                    partes.add(t.valor);
+                    break;
+                case ID:
+                    partes.add(t.valor);
+                    break;
+                case CARGAR:
+                    partes.add("el contenido del archivo \"" + t.valor + "\"");
+                    break;
+                default:
+                    partes.add(numero(t));
+                    break;
             }
         }
         return String.join(" ", partes);
