@@ -1,0 +1,155 @@
+<mxfile host="Electron">
+  <diagram id="promptzal" name="Diagrama de clases">
+    <mxGraphModel dx="3054" dy="1004" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1450" pageHeight="1050" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=22;fontColor=#1F1F1F;" value="&lt;b&gt;PROMPTZAL 3 — DIAGRAMA DE CLASES UML&lt;/b&gt;" vertex="1">
+          <mxGeometry height="40" width="900" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="g1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#D6D6D6;fontColor=#555555;fontSize=12;align=left;verticalAlign=middle;spacingLeft=10;" value="&lt;b&gt;INTERFAZ GRÁFICA&lt;/b&gt;" vertex="1">
+          <mxGeometry height="28" width="300" x="-50" y="72" as="geometry" />
+        </mxCell>
+        <mxCell id="g2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#D6D6D6;fontColor=#555555;fontSize=12;align=left;verticalAlign=middle;spacingLeft=10;" value="&lt;b&gt;ORQUESTACIÓN&lt;/b&gt;" vertex="1">
+          <mxGeometry height="28" width="310" x="300" y="72" as="geometry" />
+        </mxCell>
+        <mxCell id="g3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#D6D6D6;fontColor=#555555;fontSize=12;align=left;verticalAlign=middle;spacingLeft=10;" value="&lt;b&gt;ANÁLISIS&lt;/b&gt;" vertex="1">
+          <mxGeometry height="28" width="330" x="710" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="g4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#D6D6D6;fontColor=#555555;fontSize=12;align=left;verticalAlign=middle;spacingLeft=10;" value="&lt;b&gt;GENERACIÓN Y REPORTES&lt;/b&gt;" vertex="1">
+          <mxGeometry height="28" width="310" x="1070" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="g5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#D6D6D6;fontColor=#555555;fontSize=12;align=left;verticalAlign=middle;spacingLeft=10;" value="&lt;b&gt;MODELO AST Y TABLA DE SÍMBOLOS&lt;/b&gt;" vertex="1">
+          <mxGeometry height="28" width="1260" x="35" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="main" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Main&lt;/b&gt;&lt;hr/&gt;+ main(args)" vertex="1">
+          <mxGeometry height="90" width="220" x="-40" y="107.5" as="geometry" />
+        </mxCell>
+        <mxCell id="mainframe" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;MainFrame&lt;/b&gt;&lt;hr/&gt;- compilador: Compilador&lt;br/&gt;- editor: EditorPane&lt;br/&gt;+ compilar()&lt;br/&gt;+ abrir() / guardar()" vertex="1">
+          <mxGeometry height="140" width="270" x="-65" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="editor" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;EditorPane&lt;/b&gt;&lt;hr/&gt;+ getTexto()&lt;br/&gt;+ setTexto(texto)" vertex="1">
+          <mxGeometry height="100" width="230" x="-45" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="compilador" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Compilador&lt;/b&gt;&lt;hr/&gt;+ compilar(fuente)&lt;br/&gt;+ devuelve ResultadoCompilacion" vertex="1">
+          <mxGeometry height="130" width="270" x="300" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="resultado" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;ResultadoCompilacion&lt;/b&gt;&lt;hr/&gt;+ tokens / errores&lt;br/&gt;+ programa AST / prompt&lt;br/&gt;+ contar(tipoError)" vertex="1">
+          <mxGeometry height="130" width="270" x="300" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="lexer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Lexer (JFlex)&lt;/b&gt;&lt;hr/&gt;+ siguiente() : Token&lt;br/&gt;+ fila / columna&lt;br/&gt;+ errores léxicos" vertex="1">
+          <mxGeometry height="125" width="290" x="740" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="parser" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Parser&lt;/b&gt;&lt;hr/&gt;+ programa() : Programa&lt;br/&gt;+ errores sintácticos" vertex="1">
+          <mxGeometry height="120" width="270" x="540" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;AnalizadorSemantico&lt;/b&gt;&lt;hr/&gt;+ analizar(Programa)&lt;br/&gt;+ valida símbolos y referencias" vertex="1">
+          <mxGeometry height="120" width="290" x="750" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="generator" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;GeneradorPrompt&lt;/b&gt;&lt;hr/&gt;+ generar(Programa) : String" vertex="1">
+          <mxGeometry height="110" width="270" x="1090" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="reports" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Reportes&lt;/b&gt;&lt;hr/&gt;+ erroresHtml(resultado)&lt;br/&gt;+ simbolosHtml() / astHtml()" vertex="1">
+          <mxGeometry height="120" width="270" x="1090" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="error" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;ErrorCompilacion&lt;/b&gt;&lt;hr/&gt;+ tipo / descripción&lt;br/&gt;+ fila / columna / esperado" vertex="1">
+          <mxGeometry height="110" width="270" x="1090" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="programa" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Programa (AST)&lt;/b&gt;&lt;hr/&gt;+ directivas / agentes&lt;br/&gt;+ ejecuciones / exportaciones" vertex="1">
+          <mxGeometry height="125" width="250" x="50" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="agente" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Agente&lt;/b&gt;&lt;hr/&gt;+ nombre / contexto&lt;br/&gt;+ variables / comandos" vertex="1">
+          <mxGeometry height="125" width="240" x="350" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="varcmd" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Variable / Comando&lt;/b&gt;&lt;hr/&gt;+ nombre / expresión&lt;br/&gt;+ argumentos / destino" vertex="1">
+          <mxGeometry height="125" width="260" x="640" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="expr" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Expresión / Término&lt;/b&gt;&lt;hr/&gt;+ cadenas / identificadores&lt;br/&gt;+ números / CARGAR / suma" vertex="1">
+          <mxGeometry height="125" width="300" x="1020" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="tabla" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;TablaSimbolos&lt;/b&gt;&lt;hr/&gt;+ declarar() / buscar()&lt;br/&gt;+ símbolos por ámbito" vertex="1">
+          <mxGeometry height="110" width="250" x="50" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="simbolo" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Simbolo&lt;/b&gt;&lt;hr/&gt;+ nombre / tipo / ámbito&lt;br/&gt;+ línea de declaración" vertex="1">
+          <mxGeometry height="110" width="240" x="350" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="token" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontColor=#222222;fontSize=12;align=left;verticalAlign=top;spacing=8;" value="&lt;b&gt;Token / TipoToken&lt;/b&gt;&lt;hr/&gt;+ tipo / lexema / fila / columna&lt;br/&gt;+ enum de terminales" vertex="1">
+          <mxGeometry height="110" width="260" x="640" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="main" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6C8EBF;strokeWidth=2;endArrow=block;endFill=1;" target="mainframe" value="inicia">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="mainframe" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6C8EBF;strokeWidth=2;endArrow=open;endFill=1;" target="editor" value="usa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="mainframe" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82B366;strokeWidth=2;endArrow=block;endFill=1;" target="compilador" value="llama">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="compilador" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82B366;strokeWidth=2;endArrow=block;endFill=1;" target="resultado" value="devuelve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="compilador" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D6B656;strokeWidth=2;endArrow=block;endFill=1;" target="lexer" value="crea">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="lexer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D6B656;strokeWidth=2;endArrow=block;endFill=1;" target="parser" value="tokens">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="parser" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D6B656;strokeWidth=2;endArrow=block;endFill=1;" target="semantic" value="valida">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="parser" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;strokeWidth=2;endArrow=block;endFill=1;dashed=1;" target="programa" value="construye AST">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="programa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;strokeWidth=2;endArrow=diamond;endFill=1;" target="agente" value="contiene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="agente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;strokeWidth=2;endArrow=diamond;endFill=1;" target="varcmd" value="contiene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="varcmd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;strokeWidth=2;endArrow=open;endFill=1;" target="expr" value="usa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="programa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#9673A6;strokeWidth=2;endArrow=block;endFill=1;dashed=1;" target="generator" value="recorre">
+          <mxGeometry relative="1" x="-0.1741" as="geometry">
+            <Array as="points">
+              <mxPoint x="175" y="840" />
+              <mxPoint x="1420" y="840" />
+              <mxPoint x="1420" y="145" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="resultado" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#9673A6;strokeWidth=2;endArrow=block;endFill=1;dashed=1;" target="reports" value="datos">
+          <mxGeometry relative="1" x="-0.1939" as="geometry">
+            <Array as="points">
+              <mxPoint x="435" y="610" />
+              <mxPoint x="1390" y="610" />
+              <mxPoint x="1390" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="semantic" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B85450;strokeWidth=2;endArrow=block;endFill=1;dashed=1;" target="tabla" value="registra">
+          <mxGeometry relative="1" x="-0.2308" as="geometry">
+            <Array as="points">
+              <mxPoint x="875" y="660" />
+              <mxPoint x="-10" y="660" />
+              <mxPoint x="-10" y="925" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="tabla" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B85450;strokeWidth=2;endArrow=diamond;endFill=1;" target="simbolo" value="contiene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="token" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D6B656;strokeWidth=2;endArrow=open;endFill=1;dashed=1;" target="parser" value="consume">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="error" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#9673A6;strokeWidth=2;endArrow=open;endFill=1;dashed=1;" target="reports" value="incluye">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

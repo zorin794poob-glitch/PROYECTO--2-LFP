@@ -1,4 +1,4 @@
-package promptzal.util;
+    package promptzal.util;
 
 /** Error detectado en cualquier fase de la compilación (léxica, sintáctica o semántica). */
 public final class ErrorCompilacion {
