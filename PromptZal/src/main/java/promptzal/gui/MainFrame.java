@@ -501,7 +501,7 @@ public class MainFrame extends JFrame {
         modeloTokens.setRowCount(0);
         n = 1;
         for (Token t : r.tokens) {
-            modeloTokens.addRow(new Object[]{n++, t.tipo, t.lexema, t.fila, t.columna});
+            modeloTokens.addRow(new Object[]{n++, t.tipo, t.valor(), t.fila, t.columna});
         }
 
         panelAst.setText(Reportes.astTexto(r.programa));

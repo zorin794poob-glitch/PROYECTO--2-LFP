@@ -3,17 +3,11 @@ package promptzal.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Nodos del árbol de sintaxis abstracta (AST) de PromptZal.
- */
 public final class Ast {
 
     private Ast() {
     }
 
-    /**
-     * Raíz: directivas, agentes, ejecuciones y exportaciones.
-     */
     public static class Programa {
 
         public final List<Directiva> directivas = new ArrayList<>();
@@ -21,7 +15,7 @@ public final class Ast {
         public final List<Referencia> ejecuciones = new ArrayList<>();
         public final List<Referencia> exportaciones = new ArrayList<>();
 
-     //valor de la directiva  o entrada
+        //valor de la directiva  o entrada
         public String directiva(String nombre) {
             String v = null;
             for (Directiva d : directivas) {
@@ -50,7 +44,7 @@ public final class Ast {
 
         public final String nombre;
         public final int fila, columna;
-        public String contexto;              
+        public String contexto;
         public final List<VariableDecl> variables = new ArrayList<>();
         public final List<Comando> comandos = new ArrayList<>();
 
@@ -77,7 +71,7 @@ public final class Ast {
 
     public static class Comando {
 
-        public final String tipo;           
+        public final String tipo;
         public final int fila, columna;
         public Expresion argumento;
         public final List<Conector> conectores = new ArrayList<>();
@@ -90,7 +84,6 @@ public final class Ast {
             this.columna = columna;
         }
 
-        
         public Expresion conector(String nombre) {
             for (Conector c : conectores) {
                 if (c.nombre.equals(nombre)) {
@@ -126,8 +119,8 @@ public final class Ast {
             CADENA, ID, NUMERO, CARGAR
         }
         public final Clase clase;
-        public final String valor;            
-        public final String unidad;       
+        public final String valor;
+        public final String unidad;
         public final int fila, columna;
 
         public Termino(Clase clase, String valor, String unidad, int fila, int columna) {
@@ -139,9 +132,7 @@ public final class Ast {
         }
     }
 
-    /**
-     * Nombre usado en EJECUTAR o EXPORTAR, con su posición.
-     */
+ 
     public static class Referencia {
 
         public final String nombre;
