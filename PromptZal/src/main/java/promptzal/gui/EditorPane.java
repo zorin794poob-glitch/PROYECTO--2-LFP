@@ -29,10 +29,6 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-/**
- * Editor de código con números de línea, marcas de error y resaltado de
- * sintaxis de PromptZal.
- */
 public class EditorPane extends JPanel {
 
     private static final Pattern PATRON = Pattern.compile(
