@@ -33,6 +33,8 @@
                             <lexDefinitions>
                                 <lexDefinition>src/main/jflex/PromptZal.jflex</lexDefinition>
                             </lexDefinitions>
+                            <!-- Una única ubicación para el Lexer generado; no crear Lexer.java manualmente en src/main/java. -->
+                            <outputDirectory>${project.build.directory}/generated-sources/jflex</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

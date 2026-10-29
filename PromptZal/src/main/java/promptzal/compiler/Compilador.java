@@ -17,13 +17,17 @@ public class Compilador {
         ResultadoCompilacion r = new ResultadoCompilacion();
 
         // 1) Léxico (JFlex)
-//        Lexer lexer = new Lexer(new StringReader(fuente));
-//        Token t;
-//        do {
-//            t = lexer.siguiente();
-//            r.tokens.add(t);
-//        } while (t.tipo != TipoToken.EOF);
-//        r.errores.addAll(lexer.errores);
+        Lexer lexer = new Lexer(new StringReader(fuente));
+        try {
+            Token t;
+            do {
+                t = lexer.siguiente();
+                r.tokens.add(t);
+            } while (t.tipo != TipoToken.EOF);
+        } catch (IOException ex) {
+            r.errores.add(ErrorCompilacion.lexico("Error de lectura: " + ex.getMessage(), "", 1, 1));
+        }
+        r.errores.addAll(lexer.errores);
 
         // 2) Sintáctico (parser descendente recursivo a mano)
         if (r.tokens.isEmpty() || r.tokens.get(r.tokens.size() - 1).tipo != TipoToken.EOF) {
